@@ -14,15 +14,12 @@ RUN npm run build
 # デプロイ用
 FROM node:lts-slim
 
-RUN useradd svelteuser
-USER svelteuser
-
 WORKDIR /app
 
-COPY --from=build --chown=svelteuser:svelteuser /app/build ./build
-COPY --from=build --chown=svelteuser:svelteuser /app/package.json .
-COPY --from=build --chown=svelteuser:svelteuser /app/node_modules ./node_modules
+COPY --from=build /app/build ./build
+COPY --from=build /app/package.json .
+COPY --from=build /app/node_modules ./node_modules
 
-EXPOSE 3000
+EXPOSE 5173
 
-CMD ["node", "./build"]
+CMD ["npm", "run", "dev", "--", "--host"]
