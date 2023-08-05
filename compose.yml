@@ -1,0 +1,13 @@
+services:
+  sveltekit:
+    build:
+      context: .
+      dockerfile: docker/sveltekit/Dockerfile
+    ports:
+      - "3000:3000"
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "80:80"
