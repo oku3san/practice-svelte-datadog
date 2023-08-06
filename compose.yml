@@ -5,15 +5,14 @@ services:
       dockerfile: docker/nginx/Dockerfile
     ports:
       - "80:80"
+    depends_on:
+      - sveltekit
   sveltekit:
     build:
       context: .
       dockerfile: docker/sveltekit/Dockerfile
     ports:
       - "5173:5173"
+    tty: true
     volumes:
-      - ./src:/app/src
-      - ./static:/app/static
-      - ./vite.config.ts:/app/vite.config.ts
-      - ./tsconfig.json:/app/tsconfig.json
-      - ./svelte.config.js:/app/svelte.config.js
+      - .:/app
