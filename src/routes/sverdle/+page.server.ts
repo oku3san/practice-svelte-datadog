@@ -1,6 +1,18 @@
 import { fail } from '@sveltejs/kit';
 import { Game } from './game';
 import type { PageServerLoad, Actions } from './$types';
+import winston from 'winston';
+
+const logger = winston.createLogger({
+	level: 'info',
+	format: winston.format.json(),  // default
+	transports: [
+		new winston.transports.Console()
+	]
+});
+
+logger.info('Info Message');
+
 
 export const load = (({ cookies }) => {
 	const game = new Game(cookies.get('sverdle'));
